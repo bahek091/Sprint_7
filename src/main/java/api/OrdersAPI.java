@@ -1,6 +1,7 @@
 package api;
 
 import io.qameta.allure.Description;
+import io.qameta.allure.Step;
 import io.restassured.response.ValidatableResponse;
 import model.OrderData;
 
@@ -36,6 +37,7 @@ public class OrdersAPI extends RestAPI {
     public static final int EMPTY_TRACK = -1;
     public static final int DUMMY_TRACK = 0;
 
+    @Step("Create order")
     @Description("Create order")
     public ValidatableResponse createOrder(OrderData data) {
         return given()
@@ -47,6 +49,7 @@ public class OrdersAPI extends RestAPI {
                 .then();
     }
 
+    @Step("Cancel order")
     @Description("Cancel order")
     public ValidatableResponse cancelOrder(int param) {
         String jsonParam = "{\"" + ORDER_TRACK_PARAM + "\":" + param + "}";
@@ -59,6 +62,7 @@ public class OrdersAPI extends RestAPI {
                 .then();
     }
 
+    @Step("Accept order with courier and track id")
     @Description("Accept order")
     public ValidatableResponse acceptOrder(int id, int courierId) {
         return given()
@@ -70,7 +74,7 @@ public class OrdersAPI extends RestAPI {
                 .then();
     }
 
-    @Description("Accept order")
+    @Description("Accept order with courier")
     public ValidatableResponse acceptOrderWithoutOrderId(int courierId) {
         return given()
                 .spec(requestSpecification())
@@ -81,6 +85,7 @@ public class OrdersAPI extends RestAPI {
                 .then();
     }
 
+    @Step("Accept order with track id")
     @Description("Accept order without courierId")
     public ValidatableResponse acceptOrder(int id) {
         return given()
@@ -90,6 +95,7 @@ public class OrdersAPI extends RestAPI {
                 .then();
     }
 
+    @Step("Track order by id")
     @Description("track order")
     public ValidatableResponse trackOrder(int track) {
         return given()
@@ -101,6 +107,7 @@ public class OrdersAPI extends RestAPI {
                 .then();
     }
 
+    @Step("Track order without id")
     @Description("track order without track ID")
     public ValidatableResponse trackOrder() {
         return given()
@@ -111,6 +118,7 @@ public class OrdersAPI extends RestAPI {
                 .then();
     }
 
+    @Step("Extract order Id")
     @Description("Get order Id with track")
     public int getOrderIdByTrack(int track) {
         return trackOrder(track).extract().path(OrdersAPI.ORDER_ID_FIELD);
