@@ -9,8 +9,6 @@ import static org.hamcrest.CoreMatchers.is;
 
 public class AcceptOrderTest extends OrderBaseTest{
     private CourierData courierData;
-    private CourierAPI courierApi = new CourierAPI();
-    private int courierId;
 
     @Test
     public void checkAcceptOrderTest(){

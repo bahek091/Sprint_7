@@ -1,3 +1,4 @@
+import api.CourierAPI;
 import api.OrdersAPI;
 import model.OrderData;
 import org.junit.After;
@@ -9,11 +10,14 @@ import java.time.format.DateTimeFormatter;
 public class OrderBaseTest {
     protected OrderData orderData;
     protected OrdersAPI ordersApi = new OrdersAPI();
+    protected CourierAPI courierApi = new CourierAPI();
     protected int orderTrack;
+    protected int courierId;
 
     @Before
     public void setUp() {
         orderTrack = OrdersAPI.EMPTY_TRACK;
+        courierId = CourierAPI.EMPTY_ID;
     }
 
     @After
@@ -21,6 +25,9 @@ public class OrderBaseTest {
         if (orderTrack != OrdersAPI.EMPTY_TRACK) {
             int orderId = ordersApi.getOrderIdByTrack(orderTrack);
             ordersApi.cancelOrder(orderId).log().all();
+        }
+        if(courierId != CourierAPI.EMPTY_ID){
+            courierApi.deleteCourier(courierId);
         }
     }
 
